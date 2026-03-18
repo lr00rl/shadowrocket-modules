@@ -1,0 +1,12 @@
+#!name=脚本测试工具
+#!desc=测试 Shadowrocket 脚本功能：百度请求触发测试 + 定时任务测试
+
+[Script]
+# 百度请求测试：用 Safari 访问 https://www.baidu.com，收到通知则脚本功能正常
+BaiduTest = type=http-request,pattern=^https:\/\/www\.baidu\.com,requires-body=0,script-path=https://raw.githubusercontent.com/lr00rl/shadowrocket-modules/refs/heads/main/Script/baidu-test.js
+
+# 定时任务测试：每分钟执行一次，弹出通知
+CronTest = type=cron,cronexp="* * * * *",timeout=10,script-path=https://raw.githubusercontent.com/lr00rl/shadowrocket-modules/refs/heads/main/Script/cron-test.js
+
+[MITM]
+hostname = %APPEND% www.baidu.com
