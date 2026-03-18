@@ -1,21 +1,16 @@
 /*
- * HTTP 请求拦截测试脚本
+ * HTTP 响应拦截测试脚本
  *
  * 触发条件：Safari 访问 https://httpbin.org/get
- * 收到通知 → 脚本功能正常
- * 无通知   → 见 README Debug 指南
- *
- * 为什么不用 baidu.com：
- * Safari 访问 Baidu 会优先走 QUIC（HTTP/3，UDP 443），
- * Shadowrocket MITM 只拦截 TCP，QUIC 流量完全绕过，脚本永远不触发。
+ * 验证方式：查看响应 body，应包含 shadowrocket_test 字段
  */
 
-$notification.post(
-    "✅ 脚本测试成功",
-    "Shadowrocket 脚本功能正常",
-    "URL: " + $request.url
-);
+const body = JSON.parse($response.body);
 
-console.log("[HttpbinTest] 触发，URL: " + $request.url);
+body.shadowrocket_test = {
+  ok: true,
+  time: new Date().toLocaleString(),
+  script: "test.js"
+};
 
-$done({});
+$done({ body: JSON.stringify(body) });

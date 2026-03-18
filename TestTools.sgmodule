@@ -5,9 +5,10 @@
 # HTTP 请求测试：用 Safari 访问 https://httpbin.org/get，收到通知则脚本功能正常
 # 使用 httpbin.org 而非 baidu.com，原因：Safari 访问 Baidu 会走 QUIC（HTTP/3，UDP 443），
 # Shadowrocket MITM 只能拦截 TCP，QUIC 流量完全绕过，脚本永远不触发。
-HttpbinTest = type=http-request,pattern=^https:\/\/httpbin\.org\/get,requires-body=0,script-path=https://raw.githubusercontent.com/lr00rl/shadowrocket-modules/refs/heads/main/Script/test.js
+HttpbinTest = type=http-response,pattern=^https:\/\/httpbin\.org\/get,requires-body=1,script-path=https://raw.githubusercontent.com/lr00rl/shadowrocket-modules/refs/heads/main/Script/test.js
 
 # 定时任务测试：每分钟执行一次，弹出通知
+# tested ok
 CronTest = type=cron,cronexp="* * * * *",timeout=10,script-path=https://raw.githubusercontent.com/lr00rl/shadowrocket-modules/refs/heads/main/Script/cron-test.js
 
 [MITM]
