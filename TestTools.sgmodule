@@ -6,6 +6,7 @@
 # 使用 httpbin.org 而非 baidu.com，原因：Safari 访问 Baidu 会走 QUIC（HTTP/3，UDP 443），
 # Shadowrocket MITM 只能拦截 TCP，QUIC 流量完全绕过，脚本永远不触发。
 HttpbinTest = type=http-response,pattern=^https?:\/\/httpbin\.org\/get,requires-body=1,script-path=https://raw.githubusercontent.com/lr00rl/shadowrocket-modules/refs/heads/main/Script/test.js
+# 这个加了 http 和 https 的兼容，如果 https 没有反应的话，那大概率就是因为 https 没有解密的原因了，重新配置一下 https 解密就行
 
 # 定时任务测试：每分钟执行一次，弹出通知
 # tested ok
