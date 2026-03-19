@@ -9,7 +9,7 @@ const body = JSON.parse($response.body);
 
 body.shadowrocket_test = {
   ok: true,
-  time: new Date().toLocaleString(),
+  test_msg: "Hello from shadowrocket!",
   script: "test.js"
 };
 
